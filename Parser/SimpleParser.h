@@ -23,25 +23,28 @@ public:
 
 private:
      //<exp>
-    void exp(ofstream& output, string& line);
+    void exp(ofstream& output);
 
     //<term>
-    void term(ofstream& output, string& line);
+    void term(ofstream& output);
 
     //<factor>
-    void factor(ofstream& output, string& line);
+    void factor(ofstream& output);
 
     //<number>
-    void number(ofstream& output, string& line);
+    void number(ofstream& output);
 
     //<digit>
-    void digit(ofstream& output,string& line);
+    void digit(ofstream& output);
 
-    char getToken(string& line);
+    void getToken();
+
+    bool isDigit(char inputToken);
 
     string line;
     char token;
     int index;
+    int maxIndex;
 
 };
 #endif // SIMPLEPARSER_H_INCLUDED
