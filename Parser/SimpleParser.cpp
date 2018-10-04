@@ -4,6 +4,7 @@ SimpleParser::SimpleParser(){
     index = 0;
     token = ' ';
     line = "";
+    end = false;
 }
 
 bool SimpleParser::isDigit(char inputToken){
@@ -29,15 +30,16 @@ void SimpleParser::getToken(){
     if(index < maxIndex){
         token = line[index];
         ++index;
+        cout<<endl;
+        cout<<"\t <getToken> " <<token <<" ";
     }
     else
-        token = '-1';
-    cout<<endl;
-    cout<<"\t <getToken> " <<token <<" ";
+        end = true;
+    
 }
 
 void SimpleParser::parse(string& inputLine, ofstream& output){
-    cout<<" <parse> " <<endl;
+    cout<<" <parse> ";
     line = inputLine;
     index = 0;
     maxIndex = inputLine.length();
@@ -88,16 +90,14 @@ void SimpleParser::factor(ofstream& output){
 void SimpleParser::number(ofstream& output){
     cout<<" <number> ";
     //Call <digit>
-    /*
     digit(output);
-    while(isDigit(token))
+    while(isDigit(token) && end != true)
         digit(output);
-    */
 }
 
 void SimpleParser::digit(ofstream& output){
     cout<<" <digit> ";
-    if(isDigit(token) && token != '-1')
+    if(isDigit(token) && end != true)
         getToken();
     else{}
         //ERROR!!!

@@ -45,6 +45,7 @@ private:
     char token;
     int index;
     int maxIndex;
+    bool end;
 
 };
 #endif // SIMPLEPARSER_H_INCLUDED
