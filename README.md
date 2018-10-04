@@ -1,5 +1,5 @@
 # Recursive-Descent-Parcer
-Recursive descent parcer for a EBNF Simple Arithmetic Expression j
+Recursive descent parcer for a EBNF Simple Arithmetic Expression
 
 <p>
     <img src="EBNF Simple Arith Exp.png">
