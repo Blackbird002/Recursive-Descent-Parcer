@@ -19,25 +19,25 @@ public:
     ~SimpleParser();
 
     //Parses the entire string deriving the production
-    void parse(string inputLine, ofstream& output);
+    void parse(string& inputLine, ofstream& output);
 
 private:
      //<exp>
-    void exp(ofstream& output);
+    void exp(ofstream& output, string& line);
 
     //<term>
-    void term(ofstream& output);
+    void term(ofstream& output, string& line);
 
     //<factor>
-    void factor(ofstream& output);
+    void factor(ofstream& output, string& line);
 
     //<number>
-    void number(ofstream& output);
+    void number(ofstream& output, string& line);
 
     //<digit>
-    void digit(ofstream& output);
+    void digit(ofstream& output,string& line);
 
-    char getToken();
+    char getToken(string& line);
 
     string line;
     char token;
