@@ -1,7 +1,8 @@
 # Recursive-Descent-Parcer
 Recursive descent parcer for a EBNF Simple Arithmetic Expression
 
-
+This recognizes a Extended Backus–Naur form grammer for the following
+Simple Arithmetic Expression:
 
 ```
     EBNF for Simple Arithmetic Expressions (Louden, 1993)
