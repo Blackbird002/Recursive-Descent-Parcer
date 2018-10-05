@@ -99,9 +99,7 @@ void SimpleParser::digit(ofstream& output){
     cout<<" <digit> ";
     if(isDigit(token) && end != true)
         getToken();
-    else{}
-        //ERROR!!!
+    else
+        cout<<"Error! Expected another digit or nothing.";
+        //ERROR! 
 }
-
-
-
