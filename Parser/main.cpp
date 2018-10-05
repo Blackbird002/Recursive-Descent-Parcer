@@ -10,6 +10,8 @@ using namespace std;
 
 int main()
 {
+    SimpleParser parser;
+
     ofstream outputFile;
     ifstream inputFile;
 
@@ -26,17 +28,16 @@ int main()
         cout<<e.what() <<endl;
     }
 
-
-
-    /*
+    string line = "";
+    
     while(!inputFile.eof()){
-
-
+       getline(inputFile, line);
+       cout<<"Inserting : " <<line <<endl; 
+       cout<<"=========================================================================\n";
+       parser.parse(line,outputFile);
+       cout<<endl;
     }
 
-    SimpleParser parser;
-    string line = "(2+3)*4+5";
-    parser.parse(line,outputFile);
-    */
+    
     return 0;
 }

@@ -1,3 +1,9 @@
+/*
+Riad Shash (Ray)
+CSCI 330
+HW#3
+*/
+
 #ifndef SIMPLEPARSER_H_INCLUDED
 #define SIMPLEPARSER_H_INCLUDED
 
@@ -46,6 +52,7 @@ private:
     int index;
     int maxIndex;
     bool end;
+    bool error;
 
 };
 #endif // SIMPLEPARSER_H_INCLUDED

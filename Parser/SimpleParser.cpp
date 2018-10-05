@@ -5,6 +5,7 @@ SimpleParser::SimpleParser(){
     token = ' ';
     line = "";
     end = false;
+    error = false;
 }
 
 bool SimpleParser::isDigit(char inputToken){
@@ -34,25 +35,40 @@ void SimpleParser::getToken(){
         cout<<"\t <getToken> " <<token <<" ";
     }
     else
+        //Flag to end parcing
         end = true;
     
 }
 
 void SimpleParser::parse(string& inputLine, ofstream& output){
     cout<<" <parse> ";
+
+    //Reset the data for another parse
+    end = false;
+    error = false;
     line = inputLine;
     index = 0;
     maxIndex = inputLine.length();
+
     getToken();
     //Call <exp>
     exp(output);
+
+    if(end){
+        cout<<endl;
+        if(error)
+            cout<<"Error! \n";
+        else
+            cout<<"This expression pased with NO errors! \n";
+    }
+        
 }
 
 void SimpleParser::exp(ofstream& output){
     //Call <term>
     cout<<" <exp> ";
     term(output);
-    while(token == '+'){
+    while(token == '+' && end != true){
         getToken();
         //Call <term>
         term(output);
@@ -64,7 +80,7 @@ void SimpleParser::term(ofstream& output){
     cout<<" <term> ";
     
     factor(output);
-    while(token == '*'){
+    while(token == '*' && end != true){
         getToken();
         //Call <factor>
         factor(output);
@@ -79,8 +95,12 @@ void SimpleParser::factor(ofstream& output){
         exp(output);
         if(token == ')')
             getToken();
-        else{}
+        else{
             //ERROR!!!
+            error = true;
+            end = true;
+            cout<<"ERROR! \n";
+        }        
     }
     else
         //Call <number>
@@ -99,7 +119,9 @@ void SimpleParser::digit(ofstream& output){
     cout<<" <digit> ";
     if(isDigit(token) && end != true)
         getToken();
-    else
-        cout<<"Error! Expected another digit or nothing.";
-        //ERROR! 
+    else{
+        end = true;
+        error = true;
+        cout<<"Error!\n";
+    }     
 }
