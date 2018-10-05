@@ -17,6 +17,7 @@ bool SimpleParser::isDigit(char inputToken){
         case '3' : result = true; break;
         case '4' : result = true; break;
         case '5' : result = true; break;
+
         case '6' : result = true; break;
         case '7' : result = true; break;
         case '8' : result = true; break;
@@ -37,7 +38,7 @@ void SimpleParser::getToken(){
     else
         //Flag to end parcing
         end = true;
-    
+
 }
 
 void SimpleParser::parse(string& inputLine, ofstream& output){
@@ -59,9 +60,9 @@ void SimpleParser::parse(string& inputLine, ofstream& output){
         if(error)
             cout<<"Error! \n";
         else
-            cout<<"This expression pased with NO errors! \n";
+            cout<<"This expression parsed with NO errors! \n";
     }
-        
+
 }
 
 void SimpleParser::exp(ofstream& output){
@@ -78,7 +79,7 @@ void SimpleParser::exp(ofstream& output){
 void SimpleParser::term(ofstream& output){
     //Call <factor>
     cout<<" <term> ";
-    
+
     factor(output);
     while(token == '*' && end != true){
         getToken();
@@ -100,7 +101,7 @@ void SimpleParser::factor(ofstream& output){
             error = true;
             end = true;
             cout<<"ERROR! \n";
-        }        
+        }
     }
     else
         //Call <number>
@@ -123,5 +124,5 @@ void SimpleParser::digit(ofstream& output){
         end = true;
         error = true;
         cout<<"Error!\n";
-    }     
+    }
 }

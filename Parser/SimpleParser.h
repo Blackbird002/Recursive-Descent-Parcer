@@ -21,7 +21,7 @@ public:
     //Constructors
     SimpleParser();
 
-    //Destructor
+    //Destructor (not used)
     ~SimpleParser();
 
     //Parses the entire string deriving the production
@@ -43,8 +43,10 @@ private:
     //<digit>
     void digit(ofstream& output);
 
+    //Gets the next token from expression
     void getToken();
 
+    //Determines if token is a digit
     bool isDigit(char inputToken);
 
     string line;
