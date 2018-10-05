@@ -44,7 +44,7 @@ private:
     void digit(ofstream& output);
 
     //Gets the next token from expression
-    void getToken();
+    void getToken( ofstream& output);
 
     //Determines if token is a digit
     bool isDigit(char inputToken);

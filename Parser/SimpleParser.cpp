@@ -28,12 +28,12 @@ bool SimpleParser::isDigit(char inputToken){
 
 SimpleParser::~SimpleParser(){};
 
-void SimpleParser::getToken(){
+void SimpleParser::getToken(ofstream& output){
     if(index < maxIndex){
         token = line[index];
         ++index;
-        cout<<endl;
-        cout<<"\t <getToken> " <<token <<" ";
+        output<<endl;
+        output<<"  → <getToken> " <<token <<" ";
     }
     else
         //Flag to end parcing
@@ -42,7 +42,7 @@ void SimpleParser::getToken(){
 }
 
 void SimpleParser::parse(string& inputLine, ofstream& output){
-    cout<<" <parse> ";
+    output<<" <parse> ";
 
     //Reset the data for another parse
     end = false;
@@ -51,26 +51,26 @@ void SimpleParser::parse(string& inputLine, ofstream& output){
     index = 0;
     maxIndex = inputLine.length();
 
-    getToken();
+    getToken(output);
     //Call <exp>
     exp(output);
 
     if(end){
-        cout<<endl;
+        output<<endl;
         if(error)
-            cout<<"Error! \n";
+            output<<"Error! \n";
         else
-            cout<<"This expression parsed with NO errors! \n";
+            output<<"This expression parsed with NO errors! \n";
     }
 
 }
 
 void SimpleParser::exp(ofstream& output){
     //Call <term>
-    cout<<" <exp> ";
+    output<<" <exp> ";
     term(output);
     while(token == '+' && end != true){
-        getToken();
+        getToken(output);
         //Call <term>
         term(output);
     }
@@ -78,29 +78,29 @@ void SimpleParser::exp(ofstream& output){
 
 void SimpleParser::term(ofstream& output){
     //Call <factor>
-    cout<<" <term> ";
+    output<<" <term> ";
 
     factor(output);
     while(token == '*' && end != true){
-        getToken();
+        getToken(output);
         //Call <factor>
         factor(output);
     }
 }
 
 void SimpleParser::factor(ofstream& output){
-    cout<<" <factor> ";
+    output<<" <factor> ";
     if(token == '('){
-        getToken();
+        getToken(output);
         //Call <exp>
         exp(output);
         if(token == ')')
-            getToken();
+            getToken(output);
         else{
             //ERROR!!!
             error = true;
             end = true;
-            cout<<"ERROR! \n";
+            output<<"ERROR! \n";
         }
     }
     else
@@ -109,7 +109,7 @@ void SimpleParser::factor(ofstream& output){
 }
 
 void SimpleParser::number(ofstream& output){
-    cout<<" <number> ";
+    output<<" <number> ";
     //Call <digit>
     digit(output);
     while(isDigit(token) && end != true)
@@ -117,12 +117,12 @@ void SimpleParser::number(ofstream& output){
 }
 
 void SimpleParser::digit(ofstream& output){
-    cout<<" <digit> ";
+    output<<" <digit> ";
     if(isDigit(token) && end != true)
-        getToken();
+        getToken(output);
     else{
         end = true;
         error = true;
-        cout<<"Error!\n";
+        output<<"Error!\n";
     }
 }

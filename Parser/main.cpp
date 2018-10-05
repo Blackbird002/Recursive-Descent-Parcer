@@ -25,19 +25,21 @@ int main()
     }
     catch(const std::exception& e){
         //Prints the specific error message
-        cout<<e.what() <<endl;
+        outputFile<<e.what() <<endl;
     }
 
     string line = "";
     
     while(!inputFile.eof()){
        getline(inputFile, line);
-       cout<<"Inserting : " <<line <<endl; 
-       cout<<"=========================================================================\n";
+       outputFile<<"Inserting : " <<line <<endl; 
+       outputFile<<"=========================================================================\n";
        parser.parse(line,outputFile);
-       cout<<endl;
+       outputFile<<endl;
     }
 
-    
+    inputFile.close();
+    outputFile.close();
+
     return 0;
 }
