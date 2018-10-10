@@ -32,6 +32,7 @@ int main()
     
     while(!inputFile.eof()){
        getline(inputFile, line);
+       outputFile<<"=========================================================================\n";
        outputFile<<"Inserting : " <<line <<endl; 
        outputFile<<"=========================================================================\n";
        parser.parse(line,outputFile);

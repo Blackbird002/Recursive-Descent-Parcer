@@ -1,3 +1,9 @@
+/*
+Riad Shash (Ray)
+CSCI 330
+HW#3
+*/
+
 #include "SimpleParser.h"
 
 SimpleParser::SimpleParser(){
@@ -31,13 +37,27 @@ SimpleParser::~SimpleParser(){};
 void SimpleParser::getToken(ofstream& output){
     if(index < maxIndex){
         token = line[index];
-        ++index;
+
         output<<endl;
+
+        //Checks if first token is legal
+        if(index == 0 && !isDigit(token) && token != '(')
+            error = true;
+           
         output<<"  → <getToken> " <<token <<" ";
+        ++index;
     }
     else
-        //Flag to end parcing
+    {
+        //Flag to end parsing
         end = true;
+
+        if(token == '+' || token == '*'){
+            output<<endl;
+            output<<"  → <getToken> ";
+        }
+    }
+
 
 }
 
@@ -52,27 +72,39 @@ void SimpleParser::parse(string& inputLine, ofstream& output){
     maxIndex = inputLine.length();
 
     getToken(output);
+
     //Call <exp>
     exp(output);
 
     if(end){
         output<<endl;
-        if(error)
-            output<<"Error! \n";
-        else
+        if(!error)
             output<<"This expression parsed with NO errors! \n";
     }
 
 }
 
 void SimpleParser::exp(ofstream& output){
-    //Call <term>
-    output<<" <exp> ";
-    term(output);
-    while(token == '+' && end != true){
-        getToken(output);
+    if(!error){
         //Call <term>
+        output<<" <exp> ";
         term(output);
+        while(token == '+' && end != true){
+            getToken(output);
+            if(!isDigit(token) && token != '('){
+                error = true;
+                output<<"\nERROR! Expected a digit or '(' \n";
+                return;
+            }
+
+            //Call <term>
+            term(output);
+        }
+    }
+    else{
+        //This runs if the starting token is illegal
+        end = true;
+        output<<"\nERROR! Expected a digit or '(' \n";
     }
 }
 
@@ -83,6 +115,13 @@ void SimpleParser::term(ofstream& output){
     factor(output);
     while(token == '*' && end != true){
         getToken(output);
+
+        if(!isDigit(token) && token != '('){
+            error = true;
+            output<<"\nERROR! Expected a digit or '(' \n";
+            return;
+        }
+
         //Call <factor>
         factor(output);
     }
@@ -101,6 +140,7 @@ void SimpleParser::factor(ofstream& output){
             error = true;
             end = true;
             output<<"ERROR! \n";
+            output<<"Error! Expected ')' terminal.\n";
         }
     }
     else
@@ -123,6 +163,7 @@ void SimpleParser::digit(ofstream& output){
     else{
         end = true;
         error = true;
-        output<<"Error!\n";
+        output<<"ERROR! \n";
+        output<<"ERROR! Expected a digit terminal.\n";
     }
 }
