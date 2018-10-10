@@ -18,7 +18,7 @@ Simple Arithmetic Expression:
 
 ```
 
-#Sample Output so far:
+## Sample Output so far:
 
 ```
 =========================================================================
