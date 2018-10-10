@@ -21,6 +21,7 @@ Simple Arithmetic Expression:
 #Sample Output so far:
 
 ```
+=========================================================================
 Inserting : ((2))
 =========================================================================
  <parse> 
@@ -31,6 +32,7 @@ Inserting : ((2))
   → <getToken> ) 
 This expression parsed with NO errors! 
 
+=========================================================================
 Inserting : 3+4*5+6*7
 =========================================================================
  <parse> 
@@ -45,6 +47,7 @@ Inserting : 3+4*5+6*7
   → <getToken> 7  <factor>  <number>  <digit> 
 This expression parsed with NO errors! 
 
+=========================================================================
 Inserting : 3+2+4*5+1
 =========================================================================
  <parse> 
@@ -59,6 +62,7 @@ Inserting : 3+2+4*5+1
   → <getToken> 1  <term>  <factor>  <number>  <digit> 
 This expression parsed with NO errors! 
 
+=========================================================================
 Inserting : 3*(4+5)*(6+7)
 =========================================================================
  <parse> 
@@ -77,6 +81,7 @@ Inserting : 3*(4+5)*(6+7)
   → <getToken> ) 
 This expression parsed with NO errors! 
 
+=========================================================================
 Inserting : (2+(3*(4+5)))
 =========================================================================
  <parse> 
@@ -95,6 +100,7 @@ Inserting : (2+(3*(4+5)))
   → <getToken> ) 
 This expression parsed with NO errors! 
 
+=========================================================================
 Inserting : (2+3)*
 =========================================================================
  <parse> 
@@ -103,15 +109,40 @@ Inserting : (2+3)*
   → <getToken> + 
   → <getToken> 3  <term>  <factor>  <number>  <digit> 
   → <getToken> ) 
-  → <getToken> *  <factor>  <number>  <digit> Error!
+  → <getToken> * 
+  → <getToken> 
+ERROR! Expected a digit or '(' 
 
-Error! 
 
+=========================================================================
 Inserting : 2+
 =========================================================================
  <parse> 
   → <getToken> 2  <exp>  <term>  <factor>  <number>  <digit> 
-  → <getToken> +  <term>  <factor>  <number>  <digit> Error!
+  → <getToken> + 
+  → <getToken> 
+ERROR! Expected a digit or '(' 
 
-Error! 
+
+=========================================================================
+Inserting : +5
+=========================================================================
+ <parse> 
+  → <getToken> + 
+ERROR! Expected a digit or '(' 
+
+
+=========================================================================
+Inserting : 5
+=========================================================================
+ <parse> 
+  → <getToken> 5  <exp>  <term>  <factor>  <number>  <digit> 
+This expression parsed with NO errors! 
+
+=========================================================================
+Inserting : 
+=========================================================================
+ <parse>  <exp>  <term>  <factor>  <number>  <digit> ERROR! 
+ERROR! Expected a digit terminal.
+
 ```
