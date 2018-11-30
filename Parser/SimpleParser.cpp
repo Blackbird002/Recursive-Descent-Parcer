@@ -6,6 +6,7 @@ HW#3
 
 #include "SimpleParser.h"
 
+//Default Constructor
 SimpleParser::SimpleParser(){
     index = 0;
     token = ' ';
@@ -14,7 +15,8 @@ SimpleParser::SimpleParser(){
     error = false;
 }
 
-bool SimpleParser::isDigit(char inputToken){
+//Determines if a character is a digit
+const bool SimpleParser::isDigit(char& inputToken) const{
     bool result = false;
     switch(inputToken){
         case '0' : result = true; break;
@@ -23,7 +25,6 @@ bool SimpleParser::isDigit(char inputToken){
         case '3' : result = true; break;
         case '4' : result = true; break;
         case '5' : result = true; break;
-
         case '6' : result = true; break;
         case '7' : result = true; break;
         case '8' : result = true; break;
@@ -32,6 +33,7 @@ bool SimpleParser::isDigit(char inputToken){
     return result;
 }
 
+//Destructor
 SimpleParser::~SimpleParser(){};
 
 void SimpleParser::getToken(ofstream& output){
@@ -40,16 +42,15 @@ void SimpleParser::getToken(ofstream& output){
 
         output<<endl;
 
-        //Checks if first token is legal
+        //Checks if first token is illegal in expression
         if(index == 0 && !isDigit(token) && token != '(')
             error = true;
-           
+          
         output<<"  → <getToken> " <<token <<" ";
         ++index;
     }
-    else
-    {
-        //Flag to end parsing
+    else{
+        //Flag to end parsing - end of expression
         end = true;
 
         if(token == '+' || token == '*'){
@@ -57,14 +58,12 @@ void SimpleParser::getToken(ofstream& output){
             output<<"  → <getToken> ";
         }
     }
-
-
 }
 
 void SimpleParser::parse(string& inputLine, ofstream& output){
     output<<" <parse> ";
 
-    //Reset the data for another parse
+    //Reset variables for another parse
     end = false;
     error = false;
     line = inputLine;
@@ -96,7 +95,6 @@ void SimpleParser::exp(ofstream& output){
                 output<<"\nERROR! Expected a digit or '(' token!\n";
                 return;
             }
-
             //Call <term>
             term(output);
         }
@@ -104,6 +102,7 @@ void SimpleParser::exp(ofstream& output){
     else{
         //This runs if the starting token is illegal
         end = true;
+		error = true;
         output<<"\nERROR! Expected a digit or '(' token!\n";
     }
 }
@@ -121,7 +120,6 @@ void SimpleParser::term(ofstream& output){
             output<<"\nERROR! Expected a digit or '(' token!\n";
             return;
         }
-
         //Call <factor>
         factor(output);
     }
@@ -136,7 +134,7 @@ void SimpleParser::factor(ofstream& output){
         if(token == ')')
             getToken(output);
         else{
-            //ERROR!!!
+            //ERROR
             error = true;
             end = true;
             output<<"ERROR! \n";
@@ -161,6 +159,7 @@ void SimpleParser::digit(ofstream& output){
     if(isDigit(token) && end != true)
         getToken(output);
     else{
+		//ERROR
         end = true;
         error = true;
         output<<"ERROR! \n";

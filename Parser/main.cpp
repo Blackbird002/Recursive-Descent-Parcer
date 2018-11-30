@@ -10,11 +10,13 @@ using namespace std;
 
 int main()
 {
+    //Create the instance
     SimpleParser parser;
 
     ofstream outputFile;
     ifstream inputFile;
 
+    //Open Input.txt & Output.txt
     try{
         inputFile.open("Input.txt");
         if(!inputFile)

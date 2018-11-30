@@ -18,7 +18,7 @@ using std::ofstream;
 
 class SimpleParser{
 public:
-    //Constructors
+    //Constructor
     SimpleParser();
 
     //Destructor (not used)
@@ -44,17 +44,17 @@ private:
     void digit(ofstream& output);
 
     //Gets the next token from expression
-    void getToken( ofstream& output);
+    void getToken(ofstream& output);
 
     //Determines if token is a digit
-    bool isDigit(char inputToken);
+    const bool isDigit(char& inputToken) const;
 
     string line;
     char token;
-    int index;
-    int maxIndex;
-    bool end;
-    bool error;
+    int index;	//Current index in String	
+    int maxIndex;	//Length of the input String
+    bool end;	//Flag for end of parse
+    bool error; //Flag for error occurred
 
 };
 #endif // SIMPLEPARSER_H_INCLUDED
